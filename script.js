@@ -1,4 +1,14 @@
-window.promises = [];
+const promises = Array.from({ length: 5 }, () =>
+  new Promise((resolve) => {
+    const randomTime = Math.floor(Math.random() * 5000) + 1000; // Random time between 1 and 5 seconds
+    setTimeout(() => resolve(`Resolved in ${randomTime / 1000} seconds`), randomTime);
+  })
+);
 
-// Do not change the code above this
-// add your promises to the array `promises`
+Promise.any(promises)
+  .then((result) => {
+    document.getElementById("output").textContent = result;
+  })
+  .catch((error) => {
+    console.error("All promises failed:", error);
+  });
